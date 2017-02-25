@@ -1,0 +1,714 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS相关,技术," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言新年开工,没什么开发任务,然后我们产品老是让我给他装新版本,或者装本地的APP,或者是装线上的APP,手里没事还好,直接就装了,但是遇到忙的时候,有时候就忘了,影响别人测试,而且多次还会把你喊烦.所以有了这次尝试:iOS项目集成及自动打包上传.
+
+通常打包采用xcodebuild和xcrun两个命令，xcodebuild负责编译，xcrun负责将app打成ipa。
+
+第一回合 Jenkins当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS的持续集成和自动打包上传的尝试">
+<meta property="og:url" content="https://hetaoevo.github.io/2017/02/08/iOS的持续集成和自动打包上传的尝试/index/index.html">
+<meta property="og:site_name" content="薄荷冷冰冰">
+<meta property="og:description" content="前言新年开工,没什么开发任务,然后我们产品老是让我给他装新版本,或者装本地的APP,或者是装线上的APP,手里没事还好,直接就装了,但是遇到忙的时候,有时候就忘了,影响别人测试,而且多次还会把你喊烦.所以有了这次尝试:iOS项目集成及自动打包上传.
+
+通常打包采用xcodebuild和xcrun两个命令，xcodebuild负责编译，xcrun负责将app打成ipa。
+
+第一回合 Jenkins当">
+<meta property="og:updated_time" content="2017-02-08T08:08:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS的持续集成和自动打包上传的尝试">
+<meta name="twitter:description" content="前言新年开工,没什么开发任务,然后我们产品老是让我给他装新版本,或者装本地的APP,或者是装线上的APP,手里没事还好,直接就装了,但是遇到忙的时候,有时候就忘了,影响别人测试,而且多次还会把你喊烦.所以有了这次尝试:iOS项目集成及自动打包上传.
+
+通常打包采用xcodebuild和xcrun两个命令，xcodebuild负责编译，xcrun负责将app打成ipa。
+
+第一回合 Jenkins当">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hetaoevo.github.io/2017/02/08/iOS的持续集成和自动打包上传的尝试/index/"/>
+
+
+
+
+
+  <title> iOS的持续集成和自动打包上传的尝试 | 薄荷冷冰冰 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">薄荷冷冰冰</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一个菜逼的iOS开发者&一个待发育的检验科医生</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://hetaoevo.github.io/2017/02/08/iOS的持续集成和自动打包上传的尝试/index/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Liaoxueyuan">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/images/QQ20161213-0.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="薄荷冷冰冰">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="薄荷冷冰冰" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS的持续集成和自动打包上传的尝试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T14:09:29+08:00">
+                2017-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日志/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日志</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>新年开工,没什么开发任务,然后我们产品老是让我给他装新版本,或者装本地的APP,或者是装线上的APP,手里没事还好,直接就装了,<br>但是遇到忙的时候,有时候就忘了,影响别人测试,而且多次还会把你喊烦.所以有了这次尝试:iOS项目集成及自动打包上传.</p>
+<blockquote>
+<p>通常打包采用xcodebuild和xcrun两个命令，xcodebuild负责编译，xcrun负责将app打成ipa。</p>
+</blockquote>
+<h3 id="第一回合-Jenkins"><a href="#第一回合-Jenkins" class="headerlink" title="第一回合 Jenkins"></a>第一回合 Jenkins</h3><p>当然首先就是百度自动打包,发现了jenkins这个经常出现的词汇,看了几篇blog,感觉很厉害的样子,老牌软件.就尝试跟着各个blog开工,正如预期设想地一样,事情是不可能一帆风顺的,出现了许多问题.当然遇到问题,就解决问题.</p>
+<h5 id="问题1-Jenkins的运行问题"><a href="#问题1-Jenkins的运行问题" class="headerlink" title="问题1:Jenkins的运行问题."></a>问题1:Jenkins的运行问题.</h5><blockquote>
+<p>安装jenkins可以在<a href="https://jenkins.io/" target="_blank" rel="external">jenkins官网</a>下载安装,但是安装之后再运行会发现提示没有java的环境.这个时候需要根据提示去下载对应的java环境.</p>
+</blockquote>
+<p>然后在终端中运行jenkins,然后Safari会出现一个网址,这就是jenkins的工作界面.然后跟着别人的教程,下载插件,由于iOS的特殊性,需要特殊性,需要上传证书和login.keychain然后第二个问题随之出现了.</p>
+<h5 id="问题2-iOS的证书路径问题"><a href="#问题2-iOS的证书路径问题" class="headerlink" title="问题2:iOS的证书路径问题."></a>问题2:iOS的证书路径问题.</h5><blockquote>
+<p>尽管你在管理证书的插件里面上传了login.keychain和pp文件,你在构建的时候还是会提示你找不到证书,这个为什么呢.在查阅了越多网页和我自己的理解之后,我发现上传这2个文件是不够的,还需要把这2个文件拷贝到jenkins文件中,当然是对应的文件夹,对于pp文件,还需要填写路径.</p>
+</blockquote>
+<p>踏着第二个问题的尸体,我们终于把环境搞好了,开始配置App的配置.其实,这个配置分为几部</p>
+<ol>
+<li>jenkins对于这个项目的缓存策略</li>
+<li>源码.可以通过SVN和GIT来获取你项目的代码</li>
+<li>构建触发器,看名字就知道是怎么用,配置什么时间,什么频率去构建项目</li>
+<li>构建环境,就是之前我们弄好的pp文件和login.keychain.勾选keychain and Provisioning Profiles 插件就行了</li>
+<li>然后就是构建了,到这就有分歧了,有些blog是选择xcode进行构建,但是有些blog表示新xcode是没用这xcode构建,然后选择脚本构建</li>
+<li>其实之前5步已经完成了.但是我们有自动上传的需求,所以需要在构建完成自动上传到蒲公英或者fir.mi上,由于蒲公英没有jenkins插件,我选择了fir.</li>
+</ol>
+<p>当我完成这几步之后,美滋滋地准备查收1天的工作成果时,构成失败不出意外地出现了.</p>
+<h5 id="问题3-一样的证书问题"><a href="#问题3-一样的证书问题" class="headerlink" title="问题3:一样的证书问题"></a>问题3:一样的证书问题</h5><blockquote>
+<p>尽管你把pp文件位置放对了地方,但是由于xcode的原因,项目证书是自动管理的,所以需要在pp文件夹去手动选择,但是很遗憾,我选错了,但是我查证了资料,也问了群里的老司机,都纷纷表示,这个pp文件似乎是没法弄得,除非使用手动证书管理,但是由于项目的特殊原理,jenkins这条路,放弃.</p>
+</blockquote>
+<h3 id="第二回合-Fastlane"><a href="#第二回合-Fastlane" class="headerlink" title="第二回合 Fastlane"></a>第二回合 Fastlane</h3><p>在捣鼓了1天多的jenkins之路断了的时候,我内心几乎是崩溃的,但是哪里跌倒,哪里爬起.然后我找了我们产品又问了问需求,整理了一下,发现,现在不是很需要持续集成.所以,我就放弃了CI,直接走上了自动打包并上传的道路上.</p>
+<p>然后又是漫长的查找资料之旅.发现了shenzhen这个afnetworking大神的小工具.简单,完美符合我的需求.顺便地在shenzhen的github中看到了Fastlane.进到<a href="https://fastlane.tools/" target="_blank" rel="external">Fastlane官网</a>,哇,这个不是前几天被谷歌收购的公司么,原来是这个啊.肯定是很厉害的.看了看官网,是ruby集合.他的功能有以下几个</p>
+<ul>
+<li>在每次提交时执行测试（这包括单元测试和集成测试）</li>
+<li>只创建新的屏幕截图将其发送给客户</li>
+<li>构建并分发Beta版本</li>
+<li>构建并分发至应用商店（这包括更新配置文件，创建新的屏幕截图，上传应用至应用商店并提交应用）</li>
+</ul>
+<p>确实比shenzhen要强大许多,但是臣妾不需要啊,但是本着这个google收购的高大上公司,我按照教程也走了一遍,感觉很简单,能正常打包.但是在集成蒲公英的上传插件时,出现了问题了,表示没有cocoapods.百度了一下,并没有找到解决方案.由于新项目马上开始,也没有时间折腾了,也就放弃了Fastlane,使用shenzhen了.</p>
+<h3 id="最终回-shenzhen"><a href="#最终回-shenzhen" class="headerlink" title="最终回 shenzhen"></a>最终回 shenzhen</h3><p><a href="https://github.com/nomad/shenzhen" target="_blank" rel="external">shenzhen的Github地址</a></p>
+<p>刚刚看到这个词的时候,我以为是巧合,并不是那个深圳,结果我错了,还真是那个深圳,这个大神还写了一系列的城市程序.</p>
+<p>试了3个方法之后,我发现shenzhen是最简单,当然这也是我选择他的原因.</p>
+<p>终端安装,ipa打包,ipa上传 只需要2个步骤搞定.但是有一个小瑕疵,就是米有进度显示,打包比较耗时的,但是终端长期不动,定在那里真的很吓人啊.好在顺利完成.最后再在蒲公英加入产品经理的账号,就能在每次上传后通知他了.</p>
+<p>为了更加省事,我写了一个sh去执行这几句代码,通过写这个sh,我感受到了脚本的方便,也更加对Python感兴趣了!下面就是我写的sh<br>使用方法就是创建一个后缀的.sh文件,然后拖到终端执行就ok了.</p>
+<pre><code>#! /bin/bash
+
+echo &quot;准备开始打ipa包....................&quot;
+
+echo &quot;第一步，进入项目工程文件: /Users/liaoxueyuan/Desktop/GIT/工作&quot;
+
+cd /Users/liaoxueyuan/Desktop/GIT/工作 
+
+echo &quot;第二步，执行打包指令&quot;
+
+ipa build -w &quot;/Users/liaoxueyuan/Desktop/GIT/工作/UNIVERTWO.xcworkspace&quot; -s &quot;UNIVERTWO&quot; -c &quot;Ad Hoc&quot; --clean
+
+
+echo &quot;制作ipa包完成.......................&quot;
+
+echo &quot;第三步，分发至蒲公英&quot;
+
+ipa distribute:pgyer -u 25256d29db8e270f8460440dsfasd -a 78f395b48f3fasdfas
+
+
+
+echo &quot;分发完成.......................&quot;
+</code></pre><blockquote>
+<p>如果你需要使用的话,需要把-u 后面的代码和 -a后面的号码更换成你自己的号码.,当然还有文件路径也需要修改.</p>
+</blockquote>
+<h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><p>虽然这篇2017的第一篇blog看着没什么用,但是实际上记录了这方面的一个过程,不知道其他人是怎么看待打包这个过程的,我觉得是真的浪费时间啊,而且有时候确实会忘记啊.每当别人拿着机器过来的时候,我都觉得我自己想一个给别人打疫苗的医生,一人一针.但是之前因为懒没有去搞,但是为了更懒,这次是先完成这个简版的,之后再去请教别人的打包上传方案吧.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS相关/" rel="tag"># iOS相关</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/03/iOS的并行编程/index/" rel="next" title="iOS的并行编程--<<并发编程：API 及挑战>>阅读笔记">
+                <i class="fa fa-chevron-left"></i> iOS的并行编程--<<并发编程：API 及挑战>>阅读笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/QQ20161213-0.png"
+               alt="Liaoxueyuan" />
+          <p class="site-author-name" itemprop="name">Liaoxueyuan</p>
+          <p class="site-description motion-element" itemprop="description">薄荷冷冰冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一回合-Jenkins"><span class="nav-number"></span> <span class="nav-text">第一回合 Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题1-Jenkins的运行问题"><span class="nav-number">0.1.</span> <span class="nav-text">问题1:Jenkins的运行问题.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题2-iOS的证书路径问题"><span class="nav-number">0.2.</span> <span class="nav-text">问题2:iOS的证书路径问题.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题3-一样的证书问题"><span class="nav-number">0.3.</span> <span class="nav-text">问题3:一样的证书问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二回合-Fastlane"><span class="nav-number"></span> <span class="nav-text">第二回合 Fastlane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终回-shenzhen"><span class="nav-number"></span> <span class="nav-text">最终回 shenzhen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后话"><span class="nav-number"></span> <span class="nav-text">后话</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liaoxueyuan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="技术,Weex," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言终于有时间,可以继续学习Weex,但是为什么Weex又要更新了,而且还报错了!
+npm ERR! Darwin 16.1.0
+npm ERR! argv &amp;quot;/usr/local/bin/node&amp;quot; &amp;quot;/usr/local/bin/npm&amp;quot; &amp;quot;install&amp;quot; &amp;quot;-g&amp;quot; &amp;quot;weex-toolkit&amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Weex初识(二)">
+<meta property="og:url" content="https://hetaoevo.github.io/2016/12/29/weex/Weex初识-二/index/index.html">
+<meta property="og:site_name" content="薄荷冷冰冰">
+<meta property="og:description" content="前言终于有时间,可以继续学习Weex,但是为什么Weex又要更新了,而且还报错了!
+npm ERR! Darwin 16.1.0
+npm ERR! argv &amp;quot;/usr/local/bin/node&amp;quot; &amp;quot;/usr/local/bin/npm&amp;quot; &amp;quot;install&amp;quot; &amp;quot;-g&amp;quot; &amp;quot;weex-toolkit&amp;quot">
+<meta property="og:updated_time" content="2017-01-13T08:31:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Weex初识(二)">
+<meta name="twitter:description" content="前言终于有时间,可以继续学习Weex,但是为什么Weex又要更新了,而且还报错了!
+npm ERR! Darwin 16.1.0
+npm ERR! argv &amp;quot;/usr/local/bin/node&amp;quot; &amp;quot;/usr/local/bin/npm&amp;quot; &amp;quot;install&amp;quot; &amp;quot;-g&amp;quot; &amp;quot;weex-toolkit&amp;quot">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hetaoevo.github.io/2016/12/29/weex/Weex初识-二/index/"/>
+
+
+
+
+
+  <title> Weex初识(二) | 薄荷冷冰冰 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">薄荷冷冰冰</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一个菜逼的iOS开发者&一个待发育的检验科医生</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://hetaoevo.github.io/2016/12/29/weex/Weex初识-二/index/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Liaoxueyuan">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/images/QQ20161213-0.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="薄荷冷冰冰">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="薄荷冷冰冰" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Weex初识(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-29T19:00:55+08:00">
+                2016-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日志/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日志</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>终于有时间,可以继续学习Weex,但是为什么Weex又要更新了,而且还报错了!</p>
+<pre><code>npm ERR! Darwin 16.1.0
+npm ERR! argv &quot;/usr/local/bin/node&quot; &quot;/usr/local/bin/npm&quot; &quot;install&quot; &quot;-g&quot; &quot;weex-toolkit&quot;
+npm ERR! node v6.9.2
+npm ERR! npm  v3.10.9
+npm ERR! path /usr/local/lib/node_modules/weex-toolkit/node_modules/asn1.js
+npm ERR! code EACCES
+npm ERR! errno -13
+npm ERR! syscall access
+
+npm ERR! Error: EACCES: permission denied, access &apos;/usr/local/lib/node_modules/weex-toolkit/node_modules/asn1.js&apos;
+npm ERR!     at Error (native)
+npm ERR!  { Error: EACCES: permission denied, access &apos;/usr/local/lib/node_modules/weex-toolkit/node_modules/asn1.js&apos;
+npm ERR!     at Error (native)
+npm ERR!   errno: -13,
+npm ERR!   code: &apos;EACCES&apos;,
+npm ERR!   syscall: &apos;access&apos;,
+npm ERR!   path: &apos;/usr/local/lib/node_modules/weex-toolkit/node_modules/asn1.js&apos; }
+npm ERR! 
+npm ERR! Please try running this command again as root/Administrator.
+</code></pre><p>感觉是权限问题试了试</p>
+<pre><code>sudo npm install -g weex-toolkit
+</code></pre><p>不知道是否有用,但是感觉是成功了,趁着这个时间,继续看文档</p>
+<h2 id="Weex基本构成"><a href="#Weex基本构成" class="headerlink" title="Weex基本构成"></a>Weex基本构成</h2><p>前文提到,weex由3个部分组成,<code>&lt;template&gt;</code>,<code>&lt;style&gt;</code>,<code>&lt;script&gt;</code></p>
+<ul>
+<li><code>&lt;template&gt;</code>：必须的，使用 HTML 语法描述页面结构，内容由多个标签组成，不同的标签代表不同的组件。</li>
+<li><code>&lt;style&gt;</code>：可选的，使用 CSS 语法描述页面的具体展现形式。</li>
+<li><code>&lt;script&gt;</code>：可选的，使用 JavaScript 描述页面中的数据和页面的行为，Weex 中的数据定义也在<code>&lt;script&gt;</code>中进行</li>
+</ul>
+<h3 id="template模板"><a href="#template模板" class="headerlink" title="template模板"></a><code>template</code>模板</h3><h4 id="根节点"><a href="#根节点" class="headerlink" title="根节点"></a>根节点</h4><p>每个 Weex 页面最顶层的节点，我们称为根节点。下面是目前我们支持的三种根节点：</p>
+<p><code>&lt;div&gt;</code>：普通根节点，有确定的尺寸，不可滚动。</p>
+<p><code>&lt;scroller&gt;</code>：可滚动根节点，适用于需要全页滚动的场景。</p>
+<p><code>&lt;list&gt;</code>：列表根节点，适用于其中包含重复的子元素的列表场景。<br>目前 Weex 仅支持以上三种根节点。</p>
+<ul>
+<li>注意事项 <code>&lt;template&gt;</code>只支持一个根节点，多个根节点将无法被 Weex 正常的识别和处理。</li>
+</ul>
+<h3 id="style样式"><a href="#style样式" class="headerlink" title="style样式"></a><code>style</code>样式</h3><pre><code>&lt;style&gt;
+    .text-aa{
+        font-size: 199;
+    }
+    .large-text{
+        font-size: 612;
+    }
+&lt;/style&gt;
+</code></pre><p>原文说可以把样式理解为 CSS的子集,但是我不知道什么是CSS啊</p>
+<p>试了一下,类似iOS中的先定义属性,再调用属性</p>
+<p>另外值得注意的的是</p>
+<blockquote>
+<p>注意：Weex 遵循 HTML 特性 命名规范，所以特性命名时请不要使用陀峰格式 (CamelCase)，采用以“-”分割的 long-name 形式。</p>
+</blockquote>
+<h3 id="script脚本"><a href="#script脚本" class="headerlink" title="script脚本"></a><code>script</code>脚本</h3><pre><code>&lt;template&gt;
+    &lt;div&gt;
+        &lt;text&gt;The time is { {datetime}}&lt;/text&gt;
+        &lt;text&gt;{ {title}}&lt;/text&gt;
+        &lt;text&gt;{ {getTitle()}}&lt;/text&gt;
+      &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+    .text-aa{
+        font-size: 199;
+    }
+    .large-text{
+        font-size: 612;
+    }
+&lt;/style&gt;
+
+&lt;script&gt;
+    module.exports = {
+        data: {
+          title: &apos;这个data是为什么&apos;,
+          datetime: null
+        },
+        methods: {
+          getTitle: function () {
+            return &apos;应该是这个&apos;
+          }
+        },
+        created: function() {
+          this.datetime = new Date().toLocaleString()
+        }
+      }
+&lt;/script&gt;
+</code></pre><p>  上面 <code>&lt;script&gt;</code> 标签中定义了被赋值给 module.exports 的对象，这个对象其实就是一个 ViewModel 选项，让三个 <code>&lt;text&gt;</code>标签显示当前时间、“Alibaba”字样和“Weex Team”字样。</p>
+<p>选项中的 data 用于存储数据，这些数据可以通过数据绑定机制和 <code>&lt;template&gt;</code> 标签中的内容绑定起来。当这些数据变更时，被绑定的模板内容也会自动更新。这些数据在 <code>&lt;script&gt;</code> 中的各个方法中可以通过类似 this.x 的方式进行读写操作。</p>
+<p>而选项中的 methods 里则列出了当前上下文可执行的各种函数，比如 getTitle()。</p>
+<p>选项中最后的 created 是生命周期函数，会在数据初始化之后、界面被绑定数据并渲染之前执行。类似的生命周期函数还有 init、ready 等，在这个例子中，datetime 会在界面渲染之前被更新为当前的时间。</p>
+<h4 id="weex3个基本部分就熟悉完成了-下来看看具体的语法"><a href="#weex3个基本部分就熟悉完成了-下来看看具体的语法" class="headerlink" title="weex3个基本部分就熟悉完成了,下来看看具体的语法"></a><em>weex3个基本部分就熟悉完成了,下来看看具体的语法</em></h4><h2 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h2><p>刚刚开始看到数据绑定这个单词,不知道是什么意思,但是看了文档描述,感觉是类似iOS中的get,set方法,像懒加载一样,<code>{ {...}}}</code>类型与点语法,去调用属性,然后在<code>script</code>中去set属性</p>
+<h3 id="数据绑定路径"><a href="#数据绑定路径" class="headerlink" title="数据绑定路径"></a>数据绑定路径</h3><p><code>script</code>中的格式貌似固定的</p>
+<pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;text style=&quot;font-size: { {size}}&quot;&gt;{ {title}}&lt;/text&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  module.exports = {
+    data: {
+      size: 48,
+      title: &apos;Alibaba Weex Team&apos;
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>这个module.export似乎是固定的,下面的data就是表示属性</p>
+<p>哈哈,刚刚才说了类型是属性的点属性,下面就演示了类似的用法</p>
+<pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;text style=&quot;font-size: { {title.size}}&quot;&gt;{ {title.value}}&lt;/text&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  module.exports = {
+    data: {
+      title: {
+        size: 48,
+        value: &apos;Alibaba Weex Team&apos;
+      }
+    }
+  }
+&lt;/script&gt;
+</code></pre><h3 id="数据绑定表达式"><a href="#数据绑定表达式" class="headerlink" title="数据绑定表达式"></a>数据绑定表达式</h3><p>真是郁闷了,文档表示Weex支持一些简单的JavaScript,天啊,幸好只是简单的,不然笔者都看不懂了.<br>    <template><br>      <div style="flex-direction: row;"><br>        <text>{ {firstName + ‘ ‘ + lastName}}</text><br>      </div><br>    </template></p>
+<pre><code>&lt;script&gt;
+  module.exports = {
+    data: {
+      firstName: &apos;John&apos;,
+      lastName: &apos;Smith&apos;
+    }
+  }
+&lt;/script&gt;
+</code></pre><h3 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h3><pre><code>&lt;template&gt;
+  &lt;div style=&quot;flex-direction: row;&quot;&gt;
+    &lt;text&gt;{ {fullName}}&lt;/text&gt;
+    &lt;text onclick=&quot;changeName&quot; style=&quot;margin-left: 10;&quot;&gt;CHANGE NAME&lt;/text&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  module.exports = {
+    data: {
+      firstName: &apos;John&apos;,
+      lastName: &apos;Smith&apos;
+    },
+    computed: {
+      fullName: function() {
+        return this.firstName + &apos; &apos; + this.lastName
+      }
+    },
+    methods: {
+      changeName: function() {
+        this.firstName = &apos;Terry&apos;
+      }
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>看完代码,我以为是运行了,之后用Terry替换John,但是运行之后依旧是John,但是当我点击<code>changeName</code>之后,就发生变化了.<br>(还是因为不懂JS啊).</p>
+<p>用我这个外行人,感觉是<code>onclik</code>给予<code>CHANGE NAME</code>字符串一个点击事件,这个点击事件就是懒FirstName变值.</p>
+<p>原来这里面真的有get,set =.=</p>
+<pre><code>&lt;template&gt;
+  &lt;div style=&quot;flex-direction: row;&quot;&gt;
+    &lt;text&gt;{ {fullName}}&lt;/text&gt;
+    &lt;text onclick=&quot;changeName&quot; style=&quot;margin-left: 10;&quot;&gt;CHANGE NAME&lt;/text&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  module.exports = {
+    data: {
+      firstName: &apos;John&apos;,
+      lastName: &apos;Smith&apos;
+    },
+    computed: {
+      fullName: {
+        get: function() {
+          return this.firstName + &apos; &apos; + this.lastName
+        },
+
+        set: function(v) {
+          var s = v.split(&apos; &apos;)
+          this.firstName = s[0]
+          this.lastName = s[1]
+        }
+      }
+    },
+    methods: {
+      changeName: function() {
+        this.fullName = &apos;Terry King&apos;
+      }
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>其实set方法将fullName分为2段,但是我不明白的是,他在哪取到了fullName.</p>
+<p>试验了一下,感觉就是<code>v</code>传过去的参数,但是没有看到调用fullName.</p>
+<h1 id="疑问-这个v到底是什么东西"><a href="#疑问-这个v到底是什么东西" class="headerlink" title="疑问 这个v到底是什么东西"></a>疑问 这个<code>v</code>到底是什么东西</h1><blockquote>
+<p>注意事项：data、methods、computed 中的字段是不能相互重复的，因为它们都会通过组件实例的 this 访问到。</p>
+</blockquote>
+<p>待续       <strong>数据绑定在 <code>&lt;template&gt;</code> 中的特殊用法</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Weex/" rel="tag"># Weex</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/27/医生/草莓/index/" rel="next" title="草莓">
+                <i class="fa fa-chevron-left"></i> 草莓
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/29/医生/医生的年终回顾/" rel="prev" title="医生的年终总结">
+                医生的年终总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/QQ20161213-0.png"
+               alt="Liaoxueyuan" />
+          <p class="site-author-name" itemprop="name">Liaoxueyuan</p>
+          <p class="site-description motion-element" itemprop="description">薄荷冷冰冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Weex基本构成"><span class="nav-number">1.1.</span> <span class="nav-text">Weex基本构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#template模板"><span class="nav-number">1.1.1.</span> <span class="nav-text">template模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根节点"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">根节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style样式"><span class="nav-number">1.1.2.</span> <span class="nav-text">style样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#script脚本"><span class="nav-number">1.1.3.</span> <span class="nav-text">script脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#weex3个基本部分就熟悉完成了-下来看看具体的语法"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">weex3个基本部分就熟悉完成了,下来看看具体的语法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据绑定"><span class="nav-number">1.2.</span> <span class="nav-text">数据绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据绑定路径"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据绑定路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据绑定表达式"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据绑定表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算属性"><span class="nav-number">1.2.3.</span> <span class="nav-text">计算属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#疑问-这个v到底是什么东西"><span class="nav-number">2.</span> <span class="nav-text">疑问 这个v到底是什么东西</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liaoxueyuan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

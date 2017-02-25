@@ -1,0 +1,756 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="技术,Weex," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言趁着明天项目上线,这几周终于是忙完了,终于有时间看看新的东西了,对于weex,之前也大概了解过,也许这个东西会死掉,但是这种类型的我个人觉得始终会成长的,RN也好,weex也好,都是一种思路很好的解决方案,所以无论哪种,我觉得都有学习的必要,尽管现在没什么市场,但是听闻在阿里2端中90%的占比,我个人觉得还是有必要看看的.
+初识Weex一般,我学习东西,喜欢直接从google中搜索,然后挑自己">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Weex初识">
+<meta property="og:url" content="https://hetaoevo.github.io/2016/12/21/weex/Weex初识/index.html">
+<meta property="og:site_name" content="薄荷冷冰冰">
+<meta property="og:description" content="前言趁着明天项目上线,这几周终于是忙完了,终于有时间看看新的东西了,对于weex,之前也大概了解过,也许这个东西会死掉,但是这种类型的我个人觉得始终会成长的,RN也好,weex也好,都是一种思路很好的解决方案,所以无论哪种,我觉得都有学习的必要,尽管现在没什么市场,但是听闻在阿里2端中90%的占比,我个人觉得还是有必要看看的.
+初识Weex一般,我学习东西,喜欢直接从google中搜索,然后挑自己">
+<meta property="og:image" content="https://hetaoevo.github.io/uploads/images/Weex初识/debug.png">
+<meta property="og:image" content="https://hetaoevo.github.io/uploads/images/Weex初识/inspector.png">
+<meta property="og:updated_time" content="2016-12-29T12:27:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Weex初识">
+<meta name="twitter:description" content="前言趁着明天项目上线,这几周终于是忙完了,终于有时间看看新的东西了,对于weex,之前也大概了解过,也许这个东西会死掉,但是这种类型的我个人觉得始终会成长的,RN也好,weex也好,都是一种思路很好的解决方案,所以无论哪种,我觉得都有学习的必要,尽管现在没什么市场,但是听闻在阿里2端中90%的占比,我个人觉得还是有必要看看的.
+初识Weex一般,我学习东西,喜欢直接从google中搜索,然后挑自己">
+<meta name="twitter:image" content="https://hetaoevo.github.io/uploads/images/Weex初识/debug.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hetaoevo.github.io/2016/12/21/weex/Weex初识/"/>
+
+
+
+
+
+  <title> Weex初识 | 薄荷冷冰冰 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">薄荷冷冰冰</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一个菜逼的iOS开发者&一个待发育的检验科医生</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://hetaoevo.github.io/2016/12/21/weex/Weex初识/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Liaoxueyuan">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/images/QQ20161213-0.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="薄荷冷冰冰">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="薄荷冷冰冰" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Weex初识
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-21T19:40:00+08:00">
+                2016-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习日志/" itemprop="url" rel="index">
+                    <span itemprop="name">学习日志</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>趁着明天项目上线,这几周终于是忙完了,终于有时间看看新的东西了,对于weex,之前也大概了解过,也许这个东西会死掉,但是这种类型的我个人觉得始终会成长的,RN也好,weex也好,都是一种思路很好的解决方案,所以无论哪种,我觉得都有学习的必要,尽管现在没什么市场,但是听闻在阿里2端中90%的占比,我个人觉得还是有必要看看的.</p>
+<h1 id="初识Weex"><a href="#初识Weex" class="headerlink" title="初识Weex"></a>初识Weex</h1><p>一般,我学习东西,喜欢直接从google中搜索,然后挑自己的看的懂的看,所以我看到了github上的这篇文章.</p>
+<p><del><a href="https://github.com/weexteam/article/issues/4" target="_blank" rel="external">https://github.com/weexteam/article/issues/4</a></del></p>
+<p>上面这个貌似比较老了<br>下面这个比较给力</p>
+<pre><code>https://alibaba.github.io/weex/cn/doc/get-started.html
+</code></pre><p>所以今天,让我们从这个网站开始学习.</p>
+<h2 id="Weex环境"><a href="#Weex环境" class="headerlink" title="Weex环境"></a>Weex环境</h2><p>由于Weex是由Node.js构建的,所以,在我们开始前,需要配置环境</p>
+<ol>
+<li>安装Node.js <a href="https://nodejs.org/en/download/stable/" target="_blank" rel="external">点我安装</a></li>
+<li><p>还是使用cnpm吧 (由于权限问题,在此加上sudo)</p>
+<pre><code>$ sudo npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre></li>
+<li><p>安装Weex命令行程序 <strong>Weex Toolkit</strong></p>
+<pre><code>sudo cnpm install -g weex-toolkit
+</code></pre></li>
+<li>安装结束后使用<code>weex</code>命令验证是否成功</li>
+</ol>
+<h2 id="上手Weex"><a href="#上手Weex" class="headerlink" title="上手Weex"></a>上手Weex</h2><ol>
+<li>首先进入playground网页版<a href="http://dotwe.org/f0f3554b3642f6c2c82c9109aee42583" target="_blank" rel="external">网页版playground</a></li>
+<li>然后下载App,笔者是用的安卓(Samsung Note 5)</li>
+<li>打开网页,发现分为3个界面,左边是代码,中间是预览,而右边是二维码,可以用移动端的App扫描</li>
+</ol>
+<p>当然,最重要的就是左边的代码部分了</p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+    &lt;text class=&quot;text&quot;&gt;{{text}}&lt;/text&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+    .text {
+        font-size: 50;
+    }
+&lt;/style&gt;
+
+&lt;script&gt;
+
+module.exports = {
+    data: {
+        text: &apos;这是测试.&apos;
+    }
+}
+&lt;/script&gt;
+</code></pre><p>当然效果就是右边的预览中有一排字,”这是测试”</p>
+<p>看了文档介绍,得知<br><strong>Weex代码是由3部分组成</strong></p>
+<ul>
+<li>template </li>
+<li>style</li>
+<li>script</li>
+</ul>
+<h2 id="本地开发Weex"><a href="#本地开发Weex" class="headerlink" title="本地开发Weex"></a>本地开发Weex</h2><p>前面安装了Weex的安装环境,那么我们现在可以愉快地编写代码了</p>
+<h3 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h3><p>我们创建一个<code>.we</code>后缀的文件,然后输入之前说的3个标签</p>
+<pre><code>&lt;template&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+&lt;/style&gt;
+
+&lt;script&gt;
+&lt;/script&gt;
+</code></pre><p>现在,我们写好了一个Weex程序,但是不能直接运行,需要我们通过改革安装好的<code>weex-toolkit</code>编译.,所以执行</p>
+<pre><code>$ weex HelloWolrd.we
+</code></pre><p>结果报错了</p>
+<pre><code>HelloWolrd.we not accessable 
+</code></pre><p>想到是不是区域的问题,那么cd到当前文件夹再执行</p>
+<p>Bingo!</p>
+<p>但是现在界面没有任何东西,毕竟你刚刚只添加了3个标签,没有任何内容</p>
+<h3 id="添加内容"><a href="#添加内容" class="headerlink" title="添加内容"></a>添加内容</h3><p>接下来,我们来添加一些内容,在<code>template</code>中添加<code>text</code>标签</p>
+<pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;text&gt;薄荷冷冰冰&lt;/text&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;&lt;/style&gt;
+
+&lt;script&gt;&lt;/script&gt;
+</code></pre><p>然后只用保存,就可以在浏览器发现我们输入的文字出来了.</p>
+<h3 id="修饰内容"><a href="#修饰内容" class="headerlink" title="修饰内容"></a>修饰内容</h3><p>Now,我们现在对我们之前添加的内容进行一些样式的修饰,文本的样式定为梅奔蓝,字体为50px.</p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+        &lt;text class=&apos;text&apos; style=&quot;color: #00E5EE&quot;&gt;薄荷冷冰冰&lt;/text&gt;
+      &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+    .text{
+        font-size: 50;
+    }
+&lt;/style&gt;
+
+&lt;script&gt;
+&lt;/script&gt;
+</code></pre><p>保存,浏览器中的颜色,大小已经变了.</p>
+<h3 id="三端同步"><a href="#三端同步" class="headerlink" title="三端同步"></a>三端同步</h3><p>之前都是在浏览器查看效果,现在需要我们在移动端查看效果.</p>
+<p>首先ctrl+c停止,cmd输入命令</p>
+<pre><code>$  weex HelloWolrd.we --qr
+</code></pre><p>在终端出现一个巨大的二维码,再使用二维码扫一扫.<br>我们在移动端得到了个浏览器一模一样的东西.</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>这一节的题目是教程的题目,笔者也不是很懂,所以就照着教程来吧.</p>
+<p>weex-toolkit 已经集成了 Debugger，只需要使用如下命令即可开启 Debugger 开关调试 hello.we：</p>
+<pre><code>$  weex debug  HelloWolrd.we 
+</code></pre><p>我们输入以上命令开启，会自动打开浏览器，页面上有两个二维码，第一个是 Debugger Server，第二个是 .we 文件的地址。我们在 Playground 中先扫第一个，此时浏览器会进入一个新的页面，请你选择你需要的调试模式：</p>
+<p><img src="/uploads/images/Weex初识/debug.png" alt=""></p>
+<p>Debugger：将会打开 js debugger 页面，您可以通过 debugger 页面调试 js（诸如打断点 查看js log 和查看调用堆栈等信息）；<br>Inspector：将会打开 inspector 页面，您可以通过这个页面查看 Weex 页面的 element 属性结构，包含高亮元素，展示样式表，以及显示 native 的 log。同时可以打开一个远程的手机镜像，便于查看界面。另外调试方块中的 ElementMode 可以用来选择 element 树显示原始的 native 组件树还是显示面向前端同学的 DSL （HTML）组件树。<br>选择一种模式后会新开窗口进入调试页面，这时我们再扫第二个二维码即可进入我们想要调试的页面进行调试了。</p>
+<p>上面是文档的原文,我跟着做了一下,点了inspector,发现只有chrome的控制台,其他什么都没有,于是我尝试了重新弄了,然后,就有了</p>
+<p><img src="/uploads/images/Weex初识/inspector.png" alt=""></p>
+<p>发现左边就是手机的实时画面,当然非常卡,右边就是正常的chrome控制台~妈的,老子没有做过前端~</p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>今天的学习就介绍了,比较简单,主要是熟悉Weex的环境和样子,但是真正的代码并没有接触,但是感觉有前端基础的同学会学的很快,可怜我这个只会iOS的彩笔啊….<br>接下来的,我们将学习Weex的语法,我们下期再见.</p>
+<p>P.S 边看边下,感觉很浪费时间啊</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Weex/" rel="tag"># Weex</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/19/医生/如何添加图片/" rel="next" title="关于Markdown如何添加图片">
+                <i class="fa fa-chevron-left"></i> 关于Markdown如何添加图片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/26/iOS技术总结/index/" rel="prev" title="iOS年度总结(一)">
+                iOS年度总结(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/QQ20161213-0.png"
+               alt="Liaoxueyuan" />
+          <p class="site-author-name" itemprop="name">Liaoxueyuan</p>
+          <p class="site-description motion-element" itemprop="description">薄荷冷冰冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识Weex"><span class="nav-number"></span> <span class="nav-text">初识Weex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Weex环境"><span class="nav-number">1.</span> <span class="nav-text">Weex环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上手Weex"><span class="nav-number">2.</span> <span class="nav-text">上手Weex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地开发Weex"><span class="nav-number">3.</span> <span class="nav-text">本地开发Weex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先"><span class="nav-number">3.1.</span> <span class="nav-text">首先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加内容"><span class="nav-number">3.2.</span> <span class="nav-text">添加内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰内容"><span class="nav-number">3.3.</span> <span class="nav-text">修饰内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三端同步"><span class="nav-number">3.4.</span> <span class="nav-text">三端同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试"><span class="nav-number">3.5.</span> <span class="nav-text">调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续"><span class="nav-number">4.</span> <span class="nav-text">后续</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liaoxueyuan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
